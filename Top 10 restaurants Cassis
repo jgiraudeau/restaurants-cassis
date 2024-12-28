@@ -1,6 +1,14 @@
-<!DOCTYPE html>
-<html>
+{
+  `path`: `index.html`,
+  `repo`: `restaurants-cassis`,
+  `owner`: `jgiraudeau`,
+  `branch`: `main`,
+  `content`: `<!DOCTYPE html>
+<html lang=\"fr\">
 <head>
+  <meta charset=\"UTF-8\">
+  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+  <title>Top 10 Restaurants à Cassis</title>
   <style>
     * {
       margin: 0;
@@ -36,6 +44,44 @@
       font-size: 1.2rem;
       opacity: 0.9;
     }
+    .filters {
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-bottom: 1px solid #eee;
+    }
+    .filter-group {
+      margin-bottom: 1rem;
+    }
+    .filter-group:last-child {
+      margin-bottom: 0;
+    }
+    .filter-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #2b5876;
+    }
+    .filter-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .filter-button {
+      padding: 0.5rem 1rem;
+      border: 1px solid #2b5876;
+      border-radius: 2rem;
+      background: white;
+      color: #2b5876;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-button:hover {
+      background: #2b5876;
+      color: white;
+    }
+    .filter-button.active {
+      background: #2b5876;
+      color: white;
+    }
     .restaurant-grid {
       display: grid;
       gap: 2rem;
@@ -47,7 +93,10 @@
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
       padding: 1.5rem;
       border: 1px solid #eee;
-      transition: transform 0.2s;
+      transition: all 0.3s ease-in-out;
+    }
+    .restaurant-card.hidden {
+      display: none;
     }
     .restaurant-card:hover {
       transform: translateY(-2px);
@@ -57,10 +106,25 @@
       color: #2b5876;
       margin-bottom: 0.5rem;
     }
+    .restaurant-info {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
     .restaurant-rating {
       color: #ffa41b;
-      margin-bottom: 1rem;
       font-weight: 600;
+    }
+    .restaurant-price {
+      color: #28a745;
+    }
+    .restaurant-type {
+      color: #666;
+      background: #f8f9fa;
+      padding: 0.2rem 0.8rem;
+      border-radius: 1rem;
+      font-size: 0.9rem;
     }
     .restaurant-review {
       color: #666;
@@ -70,106 +134,178 @@
       border-radius: 0.3rem;
       margin-top: 1rem;
     }
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+      .restaurant-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class=\"container\">
     <header>
       <h1>Top 10 Restaurants à Cassis</h1>
-      <div class="subtitle">Les meilleures adresses selon Google Maps</div>
+      <div class=\"subtitle\">Les meilleures adresses selon Google Maps</div>
     </header>
     
-    <div class="restaurant-grid">
-      <div class="restaurant-card">
-        <h2 class="restaurant-name">La Villa Madie</h2>
-        <div class="restaurant-rating">⭐ 4.7/5</div>
-        <p>Restaurant gastronomique avec vue panoramique</p>
-        <div class="restaurant-review">
-          "Une expérience gastronomique exceptionnelle ! Vue imprenable sur la Méditerranée, service impeccable et plats raffinés qui mettent en valeur les produits locaux."
+    <div class=\"filters\">
+      <div class=\"filter-group\">
+        <div class=\"filter-title\">Type de cuisine</div>
+        <div class=\"filter-options\" id=\"cuisine-filters\">
+          <button class=\"filter-button active\" data-type=\"tous\">Tous</button>
+          <button class=\"filter-button\" data-type=\"gastronomique\">Gastronomique</button>
+          <button class=\"filter-button\" data-type=\"traditionnel\">Traditionnel</button>
+          <button class=\"filter-button\" data-type=\"fruits-de-mer\">Fruits de mer</button>
+          <button class=\"filter-button\" data-type=\"mediterraneen\">Méditerranéen</button>
+          <button class=\"filter-button\" data-type=\"bistrot\">Bistrot</button>
+        </div>
+      </div>
+      <div class=\"filter-group\">
+        <div class=\"filter-title\">Prix</div>
+        <div class=\"filter-options\" id=\"price-filters\">
+          <button class=\"filter-button active\" data-price=\"tous\">Tous</button>
+          <button class=\"filter-button\" data-price=\"€\">€</button>
+          <button class=\"filter-button\" data-price=\"€€\">€€</button>
+          <button class=\"filter-button\" data-price=\"€€€\">€€€</button>
+        </div>
+      </div>
+      <div class=\"filter-group\">
+        <div class=\"filter-title\">Note minimale</div>
+        <div class=\"filter-options\" id=\"rating-filters\">
+          <button class=\"filter-button active\" data-rating=\"0\">Tous</button>
+          <button class=\"filter-button\" data-rating=\"4.5\">4.5+ ⭐</button>
+          <button class=\"filter-button\" data-rating=\"4\">4.0+ ⭐</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class=\"restaurant-grid\">
+      <div class=\"restaurant-card\" data-type=\"gastronomique\" data-price=\"€€€\" data-rating=\"4.7\">
+        <h2 class=\"restaurant-name\">La Villa Madie</h2>
+        <div class=\"restaurant-info\">
+          <div class=\"restaurant-rating\">⭐ 4.7/5</div>
+          <div class=\"restaurant-price\">€€€</div>
+          <div class=\"restaurant-type\">Gastronomique</div>
+        </div>
+        <div class=\"restaurant-review\">
+          \"Une expérience gastronomique exceptionnelle ! Vue imprenable sur la Méditerranée, service impeccable et plats raffinés qui mettent en valeur les produits locaux.\"
         </div>
       </div>
 
-      <div class="restaurant-card">
-        <h2 class="restaurant-name">Le Chaudron</h2>
-        <div class="restaurant-rating">⭐ 4.6/5</div>
-        <p>Cuisine provençale traditionnelle</p>
-        <div class="restaurant-review">
-          "Excellent restaurant traditionnel, la bouillabaisse est tout simplement divine ! Atmosphère chaleureuse et service attentionné."
+      <div class=\"restaurant-card\" data-type=\"traditionnel\" data-price=\"€€\" data-rating=\"4.6\">
+        <h2 class=\"restaurant-name\">Le Chaudron</h2>
+        <div class=\"restaurant-info\">
+          <div class=\"restaurant-rating\">⭐ 4.6/5</div>
+          <div class=\"restaurant-price\">€€</div>
+          <div class=\"restaurant-type\">Traditionnel</div>
+        </div>
+        <div class=\"restaurant-review\">
+          \"Excellent restaurant traditionnel, la bouillabaisse est tout simplement divine ! Atmosphère chaleureuse et service attentionné.\"
         </div>
       </div>
 
-      <div class="restaurant-card">
-        <h2 class="restaurant-name">Nino</h2>
-        <div class="restaurant-rating">⭐ 4.5/5</div>
-        <p>Restaurant méditerranéen</p>
-        <div class="restaurant-review">
-          "Une perle rare à Cassis ! Les fruits de mer sont d'une fraîcheur exceptionnelle, et la vue sur le port est magnifique."
+      <div class=\"restaurant-card\" data-type=\"mediterraneen\" data-price=\"€€\" data-rating=\"4.5\">
+        <h2 class=\"restaurant-name\">Nino</h2>
+        <div class=\"restaurant-info\">
+          <div class=\"restaurant-rating\">⭐ 4.5/5</div>
+          <div class=\"restaurant-price\">€€</div>
+          <div class=\"restaurant-type\">Méditerranéen</div>
+        </div>
+        <div class=\"restaurant-review\">
+          \"Une perle rare à Cassis ! Les fruits de mer sont d'une fraîcheur exceptionnelle, et la vue sur le port est magnifique.\"
         </div>
       </div>
 
-      <div class="restaurant-card">
-        <h2 class="restaurant-name">La Poissonerie</h2>
-        <div class="restaurant-rating">⭐ 4.5/5</div>
-        <p>Spécialités de poissons</p>
-        <div class="restaurant-review">
-          "Les meilleurs poissons de Cassis ! Produits ultra frais et préparation simple qui respecte les saveurs. Un must !"
+      <div class=\"restaurant-card\" data-type=\"fruits-de-mer\" data-price=\"€€\" data-rating=\"4.5\">
+        <h2 class=\"restaurant-name\">La Poissonerie</h2>
+        <div class=\"restaurant-info\">
+          <div class=\"restaurant-rating\">⭐ 4.5/5</div>
+          <div class=\"restaurant-price\">€€</div>
+          <div class=\"restaurant-type\">Fruits de mer</div>
+        </div>
+        <div class=\"restaurant-review\">
+          \"Les meilleurs poissons de Cassis ! Produits ultra frais et préparation simple qui respecte les saveurs. Un must !\"
         </div>
       </div>
 
-      <div class="restaurant-card">
-        <h2 class="restaurant-name">L'Oustau de la Mar</h2>
-        <div class="restaurant-rating">⭐ 4.4/5</div>
-        <p>Restaurant de fruits de mer</p>
-        <div class="restaurant-review">
-          "Superbe restaurant les pieds dans l'eau. La carte des vins est exceptionnelle et met en valeur les vins de Cassis."
+      <div class=\"restaurant-card\" data-type=\"fruits-de-mer\" data-price=\"€€\" data-rating=\"4.4\">
+        <h2 class=\"restaurant-name\">L'Oustau de la Mar</h2>
+        <div class=\"restaurant-info\">
+          <div class=\"restaurant-rating\">⭐ 4.4/5</div>
+          <div class=\"restaurant-price\">€€</div>
+          <div class=\"restaurant-type\">Fruits de mer</div>
+        </div>
+        <div class=\"restaurant-review\">
+          \"Superbe restaurant les pieds dans l'eau. La carte des vins est exceptionnelle et met en valeur les vins de Cassis.\"
         </div>
       </div>
 
-      <div class="restaurant-card">
-        <h2 class="restaurant-name">Le Bonaparte</h2>
-        <div class="restaurant-rating">⭐ 4.4/5</div>
-        <p>Bistrot traditionnel</p>
-        <div class="restaurant-review">
-          "Une institution à Cassis ! Ambiance conviviale, plats généreux et authentiques. Le rapport qualité-prix est excellent."
+      <div class=\"restaurant-card\" data-type=\"bistrot\" data-price=\"€\" data-rating=\"4.4\">
+        <h2 class=\"restaurant-name\">Le Bonaparte</h2>
+        <div class=\"restaurant-info\">
+          <div class=\"restaurant-rating\">⭐ 4.4/5</div>
+          <div class=\"restaurant-price\">€</div>
+          <div class=\"restaurant-type\">Bistrot</div>
+        </div>
+        <div class=\"restaurant-review\">
+          \"Une institution à Cassis ! Ambiance conviviale, plats généreux et authentiques. Le rapport qualité-prix est excellent.\"
         </div>
       </div>
 
-      <div class="restaurant-card">
-        <h2 class="restaurant-name">La Presqu'île</h2>
-        <div class="restaurant-rating">⭐ 4.3/5</div>
-        <p>Restaurant panoramique</p>
-        <div class="restaurant-review">
-          "Vue exceptionnelle sur les calanques, cuisine raffinée et service professionnel. Parfait pour un dîner romantique."
+      <div class=\"restaurant-card\" data-type=\"mediterraneen\" data-price=\"€€€\" data-rating=\"4.3\">
+        <h2 class=\"restaurant-name\">La Presqu'île</h2>
+        <div class=\"restaurant-info\">
+          <div class=\"restaurant-rating\">⭐ 4.3/5</div>
+          <div class=\"restaurant-price\">€€€</div>
+          <div class=\"restaurant-type\">Méditerranéen</div>
+        </div>
+        <div class=\"restaurant-review\">
+          \"Vue exceptionnelle sur les calanques, cuisine raffinée et service professionnel. Parfait pour un dîner romantique.\"
         </div>
       </div>
 
-      <div class="restaurant-card">
-        <h2 class="restaurant-name">Le Grand Bleu</h2>
-        <div class="restaurant-rating">⭐ 4.3/5</div>
-        <p>Cuisine méditerranéenne</p>
-        <div class="restaurant-review">
-          "Excellente cuisine méditerranéenne, terrasse agréable et service chaleureux. Les desserts sont particulièrement réussis."
+      <div class=\"restaurant-card\" data-type=\"mediterraneen\" data-price=\"€€\" data-rating=\"4.3\">
+        <h2 class=\"restaurant-name\">Le Grand Bleu</h2>
+        <div class=\"restaurant-info\">
+          <div class=\"restaurant-rating\">⭐ 4.3/5</div>
+          <div class=\"restaurant-price\">€€</div>
+          <div class=\"restaurant-type\">Méditerranéen</div>
+        </div>
+        <div class=\"restaurant-review\">
+          \"Excellente cuisine méditerranéenne, terrasse agréable et service chaleureux. Les desserts sont particulièrement réussis.\"
         </div>
       </div>
 
-      <div class="restaurant-card">
-        <h2 class="restaurant-name">Restaurant du Port</h2>
-        <div class="restaurant-rating">⭐ 4.2/5</div>
-        <p>Restaurant traditionnel</p>
-        <div class="restaurant-review">
-          "Emplacement idéal sur le port, cuisine authentique et familiale. Les plats de poisson sont délicieux."
+      <div class=\"restaurant-card\" data-type=\"traditionnel\" data-price=\"€€\" data-rating=\"4.2\">
+        <h2 class=\"restaurant-name\">Restaurant du Port</h2>
+        <div class=\"restaurant-info\">
+          <div class=\"restaurant-rating\">⭐ 4.2/5</div>
+          <div class=\"restaurant-price\">€€</div>
+          <div class=\"restaurant-type\">Traditionnel</div>
+        </div>
+        <div class=\"restaurant-review\">
+          \"Emplacement idéal sur le port, cuisine authentique et familiale. Les plats de poisson sont délicieux.\"
         </div>
       </div>
 
-      <div class="restaurant-card">
-        <h2 class="restaurant-name">La Petite Cuisine</h2>
-        <div class="restaurant-rating">⭐ 4.2/5</div>
-        <p>Bistrot moderne</p>
-        <div class="restaurant-review">
-          "Petite adresse charmante dans les ruelles de Cassis. Cuisine créative et moderne qui respecte les traditions provençales."
+      <div class=\"restaurant-card\" data-type=\"bistrot\" data-price=\"€\" data-rating=\"4.2\">
+        <h2 class=\"restaurant-name\">La Petite Cuisine</h2>
+        <div class=\"restaurant-info\">
+          <div class=\"restaurant-rating\">⭐ 4.2/5</div>
+          <div class=\"restaurant-price\">€</div>
+          <div class=\"restaurant-type\">Bistrot</div>
+        </div>
+        <div class=\"restaurant-review\">
+          \"Petite adresse charmante dans les ruelles de Cassis. Cuisine créative et moderne qui respecte les traditions provençales.\"
         </div>
       </div>
     </div>
   </div>
-</body>
-</html>
+
+  <script>
+    // Fonction pour gérer les filtres`,
+  `message`: `Ajout du système de filtrage des restaurants`
+}
