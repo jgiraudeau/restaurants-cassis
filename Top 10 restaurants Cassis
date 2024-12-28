@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+      padding: 2rem;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    header {
+      background: linear-gradient(to right, #2b5876, #4e4376);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+    .restaurant-grid {
+      display: grid;
+      gap: 2rem;
+      padding: 2rem;
+    }
+    .restaurant-card {
+      background: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      padding: 1.5rem;
+      border: 1px solid #eee;
+      transition: transform 0.2s;
+    }
+    .restaurant-card:hover {
+      transform: translateY(-2px);
+    }
+    .restaurant-name {
+      font-size: 1.4rem;
+      color: #2b5876;
+      margin-bottom: 0.5rem;
+    }
+    .restaurant-rating {
+      color: #ffa41b;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    .restaurant-review {
+      color: #666;
+      font-style: italic;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 0.3rem;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Top 10 Restaurants à Cassis</h1>
+      <div class="subtitle">Les meilleures adresses selon Google Maps</div>
+    </header>
+    
+    <div class="restaurant-grid">
+      <div class="restaurant-card">
+        <h2 class="restaurant-name">La Villa Madie</h2>
+        <div class="restaurant-rating">⭐ 4.7/5</div>
+        <p>Restaurant gastronomique avec vue panoramique</p>
+        <div class="restaurant-review">
+          "Une expérience gastronomique exceptionnelle ! Vue imprenable sur la Méditerranée, service impeccable et plats raffinés qui mettent en valeur les produits locaux."
+        </div>
+      </div>
+
+      <div class="restaurant-card">
+        <h2 class="restaurant-name">Le Chaudron</h2>
+        <div class="restaurant-rating">⭐ 4.6/5</div>
+        <p>Cuisine provençale traditionnelle</p>
+        <div class="restaurant-review">
+          "Excellent restaurant traditionnel, la bouillabaisse est tout simplement divine ! Atmosphère chaleureuse et service attentionné."
+        </div>
+      </div>
+
+      <div class="restaurant-card">
+        <h2 class="restaurant-name">Nino</h2>
+        <div class="restaurant-rating">⭐ 4.5/5</div>
+        <p>Restaurant méditerranéen</p>
+        <div class="restaurant-review">
+          "Une perle rare à Cassis ! Les fruits de mer sont d'une fraîcheur exceptionnelle, et la vue sur le port est magnifique."
+        </div>
+      </div>
+
+      <div class="restaurant-card">
+        <h2 class="restaurant-name">La Poissonerie</h2>
+        <div class="restaurant-rating">⭐ 4.5/5</div>
+        <p>Spécialités de poissons</p>
+        <div class="restaurant-review">
+          "Les meilleurs poissons de Cassis ! Produits ultra frais et préparation simple qui respecte les saveurs. Un must !"
+        </div>
+      </div>
+
+      <div class="restaurant-card">
+        <h2 class="restaurant-name">L'Oustau de la Mar</h2>
+        <div class="restaurant-rating">⭐ 4.4/5</div>
+        <p>Restaurant de fruits de mer</p>
+        <div class="restaurant-review">
+          "Superbe restaurant les pieds dans l'eau. La carte des vins est exceptionnelle et met en valeur les vins de Cassis."
+        </div>
+      </div>
+
+      <div class="restaurant-card">
+        <h2 class="restaurant-name">Le Bonaparte</h2>
+        <div class="restaurant-rating">⭐ 4.4/5</div>
+        <p>Bistrot traditionnel</p>
+        <div class="restaurant-review">
+          "Une institution à Cassis ! Ambiance conviviale, plats généreux et authentiques. Le rapport qualité-prix est excellent."
+        </div>
+      </div>
+
+      <div class="restaurant-card">
+        <h2 class="restaurant-name">La Presqu'île</h2>
+        <div class="restaurant-rating">⭐ 4.3/5</div>
+        <p>Restaurant panoramique</p>
+        <div class="restaurant-review">
+          "Vue exceptionnelle sur les calanques, cuisine raffinée et service professionnel. Parfait pour un dîner romantique."
+        </div>
+      </div>
+
+      <div class="restaurant-card">
+        <h2 class="restaurant-name">Le Grand Bleu</h2>
+        <div class="restaurant-rating">⭐ 4.3/5</div>
+        <p>Cuisine méditerranéenne</p>
+        <div class="restaurant-review">
+          "Excellente cuisine méditerranéenne, terrasse agréable et service chaleureux. Les desserts sont particulièrement réussis."
+        </div>
+      </div>
+
+      <div class="restaurant-card">
+        <h2 class="restaurant-name">Restaurant du Port</h2>
+        <div class="restaurant-rating">⭐ 4.2/5</div>
+        <p>Restaurant traditionnel</p>
+        <div class="restaurant-review">
+          "Emplacement idéal sur le port, cuisine authentique et familiale. Les plats de poisson sont délicieux."
+        </div>
+      </div>
+
+      <div class="restaurant-card">
+        <h2 class="restaurant-name">La Petite Cuisine</h2>
+        <div class="restaurant-rating">⭐ 4.2/5</div>
+        <p>Bistrot moderne</p>
+        <div class="restaurant-review">
+          "Petite adresse charmante dans les ruelles de Cassis. Cuisine créative et moderne qui respecte les traditions provençales."
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
